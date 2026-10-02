@@ -20,16 +20,30 @@
             text-align: left;
         }
 
-        .profile-image {
-            width: 200px;
-            height: auto;
-            display: block;
+        /* 사진 + GIF */
+        .images {
+            display: flex;
+            gap: 15px;
+            align-items: flex-start;
             margin-bottom: 25px;
         }
 
+        .profile-image,
+        .gif-image {
+            height: 200px;
+            width: auto;
+            display: block;
+        }
+
+        /* 글 */
         .section {
             margin-bottom: 18px;
             line-height: 1.4;
+        }
+
+        /* 강조 */
+        .bold {
+            font-weight: bold;
         }
     </style>
 </head>
@@ -38,11 +52,16 @@
 
     <div class="container">
 
-        <img src="HL1DxI8awAACiPX.jpg" alt="Profile" class="profile-image">
+        <!-- 사진 + 움짤 -->
+        <div class="images">
+            <img src="HL1DxI8awAACiPX.jpg" alt="Profile" class="profile-image">
+            <img src="You_Are_An_Idiot_screen.gif" alt="GIF" class="gif-image">
+        </div>
+
         <div class="section">
-            2D- <strong>GK</strong> Hellaverse 원나블<br>
+            2D- <span class="bold">GK</span> Hellaverse 원나블<br>
             2.5D- MCU OITNB OnMyBlock<br>
-            GAME- <strong>ブルアカ</strong> Undertale OFF CYPHERS<br>
+            GAME- <span class="bold">ブルアカ</span> Undertale OFF CYPHERS<br>
             etc) TADC FnF
         </div>
 
