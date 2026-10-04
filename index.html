@@ -85,3 +85,189 @@
 
 </body>
 </html>
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        body {
+            margin: 0;
+            background: white;
+            color: #222;
+            font-family: Arial, sans-serif;
+            font-size: 13px;
+        }
+
+        .container {
+            max-width: 650px;
+            margin: 45px auto;
+            padding: 0 20px;
+            text-align: left;
+        }
+
+        /* 사진 + GIF */
+        .images {
+            display: flex;
+            gap: 15px;
+            align-items: flex-start;
+            margin-bottom: 25px;
+        }
+
+        .profile-image,
+        .gif-image {
+            height: 200px;
+            width: auto;
+            display: block;
+        }
+
+        /* 글 */
+        .section {
+            margin-bottom: 18px;
+            line-height: 1.4;
+        }
+
+        /* 굵은 글씨 */
+        .bold {
+            font-weight: bold;
+        }
+
+        /* 유튜브 팝업 */
+        .youtube-popup {
+            position: fixed;
+            right: 80px;
+            bottom: 40px;
+            width: 320px;
+            background: white;
+            border: 1px solid #ccc;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            z-index: 9999;
+        }
+
+        /* 팝업을 잡고 움직이는 부분 */
+        .youtube-header {
+            height: 25px;
+            background: #f5f5f5;
+            cursor: move;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            padding: 0 7px;
+            box-sizing: border-box;
+            user-select: none;
+        }
+
+        .youtube-close {
+            cursor: pointer;
+            font-size: 16px;
+            line-height: 1;
+        }
+
+        .youtube-video {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            display: block;
+            border: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <!-- 사진 + 움짤 -->
+        <div class="images">
+            <img src="HL1DxI8awAACiPX.jpg" alt="Profile" class="profile-image">
+            <img src="You_Are_An_Idiot_screen.gif" alt="GIF" class="gif-image">
+        </div>
+
+        <div class="section">
+            2D- <span class="bold">GK</span> Hellaverse 원나블<br>
+            2.5D- MCU OITNB OnMyBlock<br>
+            GAME- <span class="bold">ブルアカ</span> Undertale OFF CYPHERS<br>
+            etc) TADC FnF
+        </div>
+
+        <div class="section">
+            Jason Genao<br>
+            Brett Grey<br>
+            Simone Ashley<br>
+            Emma Corrin<br>
+            Natasha Lyonne
+        </div>
+
+        <div class="section">
+            HIGH-RISE (2015)<br>
+            the Killing of a SACRED DEER (2017)<br>
+            THE SWALLOWS (2016)<br>
+            Saltburn (2023)<br>
+            THE DISCOVERY (2017)
+        </div>
+
+    </div>
+
+
+    <!-- 유튜브 팝업 -->
+    <div class="youtube-popup" id="youtubePopup">
+
+        <div class="youtube-header" id="youtubeHeader">
+            <span class="youtube-close" id="youtubeClose">×</span>
+        </div>
+
+        <iframe
+            class="youtube-video"
+            src="https://www.youtube.com/embed/xeweOxQz8tQ"
+            title="YouTube video"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen>
+        </iframe>
+
+    </div>
+
+
+    <script>
+        const popup = document.getElementById("youtubePopup");
+        const header = document.getElementById("youtubeHeader");
+        const close = document.getElementById("youtubeClose");
+
+        let isDragging = false;
+        let offsetX = 0;
+        let offsetY = 0;
+
+        header.addEventListener("mousedown", function(e) {
+            if (e.target === close) return;
+
+            isDragging = true;
+
+            const rect = popup.getBoundingClientRect();
+
+            offsetX = e.clientX - rect.left;
+            offsetY = e.clientY - rect.top;
+
+            popup.style.right = "auto";
+            popup.style.bottom = "auto";
+            popup.style.left = rect.left + "px";
+            popup.style.top = rect.top + "px";
+        });
+
+        document.addEventListener("mousemove", function(e) {
+            if (!isDragging) return;
+
+            popup.style.left = (e.clientX - offsetX) + "px";
+            popup.style.top = (e.clientY - offsetY) + "px";
+        });
+
+        document.addEventListener("mouseup", function() {
+            isDragging = false;
+        });
+
+        close.addEventListener("click", function() {
+            popup.style.display = "none";
+        });
+    </script>
+
+</body>
+</html>
