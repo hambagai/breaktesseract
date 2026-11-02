@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -5,6 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <style>
+        * {
+            box-sizing: border-box;
+        }
+
         body {
             margin: 0;
             background: white;
@@ -14,7 +19,8 @@
         }
 
         .container {
-            max-width: 650px;
+            width: 100%;
+            max-width: 690px;
             margin: 45px auto;
             padding: 0 20px;
             text-align: left;
@@ -23,16 +29,18 @@
         /* 사진 + GIF */
         .images {
             display: flex;
-            gap: 15px;
+            gap: 10px;
             align-items: flex-start;
-            margin-bottom: 25px;
+            margin-bottom: 18px;
         }
 
         .profile-image,
         .gif-image {
             height: 200px;
             width: auto;
+            max-width: 48%;
             display: block;
+            object-fit: contain;
         }
 
         /* 글 */
@@ -41,20 +49,36 @@
             line-height: 1.4;
         }
 
-        /* 굵은 글씨 */
         .bold {
             font-weight: bold;
         }
 
-        /* -------------------- */
-        /* 유튜브 팝업 */
-        /* -------------------- */
+        /* 왼쪽 추가 이미지 */
+        .side-image-one {
+            position: absolute;
+            left: 4%;
+            top: 70px;
+            width: 116px;
+            height: 116px;
+            object-fit: cover;
+        }
 
+        .side-image-two {
+            position: absolute;
+            left: 4%;
+            top: 190px;
+            width: 200px;
+            height: 105px;
+            object-fit: cover;
+        }
+
+        /* 유튜브 팝업 */
         .youtube-popup {
             position: fixed;
             right: 80px;
             bottom: 40px;
             width: 320px;
+            max-width: calc(100vw - 32px);
             background: white;
             border: 1px solid #ccc;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
@@ -69,8 +93,8 @@
             justify-content: flex-end;
             align-items: center;
             padding: 0 7px;
-            box-sizing: border-box;
             user-select: none;
+            touch-action: none;
         }
 
         .youtube-close {
@@ -86,10 +110,7 @@
             border: none;
         }
 
-        /* -------------------- */
         /* 갈매기 GIF */
-        /* -------------------- */
-
         .seagull-popup {
             position: fixed;
             left: 850px;
@@ -98,6 +119,7 @@
             z-index: 9998;
             cursor: move;
             user-select: none;
+            touch-action: none;
         }
 
         .seagull-popup img {
@@ -106,176 +128,95 @@
             display: block;
             pointer-events: none;
         }
+
+        /* 모바일 화면 */
+        @media (max-width: 900px) {
+
+            /* 왼쪽 이미지 숨기기 */
+            .side-image-one,
+            .side-image-two {
+                display: none;
+            }
+        }
+
+        @media (max-width: 600px) {
+
+            /* 페이지 여백 */
+            .container {
+                width: 100%;
+                margin: 25px auto;
+                padding: 0 16px;
+            }
+
+            /* 메인 사진과 GIF 크기 */
+            .images {
+                gap: 8px;
+                margin-bottom: 20px;
+            }
+
+            .profile-image,
+            .gif-image {
+                height: 130px;
+                max-width: calc((100vw - 48px) / 2);
+                width: auto;
+                object-fit: contain;
+            }
+
+            /* 글씨 */
+            body {
+                font-size: 13px;
+            }
+
+            .section {
+                line-height: 1.4;
+                margin-bottom: 18px;
+            }
+
+            /* 유튜브 팝업 */
+            .youtube-popup {
+                width: min(280px, calc(100vw - 32px));
+                right: 16px;
+                bottom: 16px;
+            }
+
+            /* 갈매기 */
+            .seagull-popup {
+                left: 16px;
+                top: 220px;
+                width: 130px;
+            }
+        }
     </style>
 </head>
 
 <body>
 
+    <!-- 왼쪽 추가 이미지 -->
+    <img src="f79602b5f869d5e7487634d8b9d861f9.jpg"
+         alt="Side Image 1"
+         class="side-image-one">
+
+    <img src="%ED%99%94%EB%A9%B4%20%EC%BA%A1%EC%B2%98%202026-08-18%20234748.png"
+         alt="Side Image 2"
+         class="side-image-two">
+
+
+    <!-- 메인 자기소개 -->
     <div class="container">
 
-        <!-- 사진 + 움짤 -->
         <div class="images">
-            <img src="HL1DxI8awAACiPX.jpg" alt="Profile" class="profile-image">
-            <img src="You_Are_An_Idiot_screen.gif" alt="GIF" class="gif-image">
-        </div>
-        
-       <div class="section">
-           함바가이 빡빡이 연주<br>
-        </div>
-        
-        <div class="section">
-            2D- <span class="bold">GK</span> Hellaverse 원나블<br>
-            2.5D- MCU OITNB OnMyBlock<br>
-            GAME- <span class="bold">ブルアカ</span> Undertale OFF CYPHERS<br>
-            etc) TADC FnF
+            <img src="HL1DxI8awAACiPX.jpg"
+                 alt="Profile"
+                 class="profile-image">
+
+            <img src="You_Are_An_Idiot_screen.gif"
+                 alt="GIF"
+                 class="gif-image">
         </div>
 
         <div class="section">
-            Jason Genao<br>
-            Brett Grey<br>
-            Emma Corrin<br>
-            Jack O'Connell<br>
-            Natasha Lyonne
+            함바가이 빡빡이 연주<br>
         </div>
 
         <div class="section">
-            HIGH-RISE (2015)<br>
-            the Killing of a SACRED DEER (2017)<br>
-            THE SWALLOWS (2016)<br>
-            Saltburn (2023)<br>
-            THE DISCOVERY (2017)
-        </div>
-
-    </div>
-
-
-    <!-- ==================== -->
-    <!-- 유튜브 팝업 -->
-    <!-- ==================== -->
-
-    <div class="youtube-popup" id="youtubePopup">
-
-        <div class="youtube-header" id="youtubeHeader">
-            <span class="youtube-close" id="youtubeClose">×</span>
-        </div>
-
-        <iframe
-            id="youtubeVideo"
-            class="youtube-video"
-            src="https://www.youtube.com/embed/qQt-dj109Ss"
-            title="YouTube video"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen>
-        </iframe>
-
-    </div>
-
-
-    <!-- ==================== -->
-    <!-- 갈매기 GIF -->
-    <!-- ==================== -->
-
-    <div class="seagull-popup" id="seagullPopup">
-        <img src="seagulls-dancing-seagull.gif" alt="Dancing Seagull">
-    </div>
-
-
-    <script>
-
-        /* ==================== */
-        /* 유튜브 드래그 */
-        /* ==================== */
-
-        const popup = document.getElementById("youtubePopup");
-        const header = document.getElementById("youtubeHeader");
-        const close = document.getElementById("youtubeClose");
-        const video = document.getElementById("youtubeVideo");
-
-        let isDragging = false;
-        let offsetX = 0;
-        let offsetY = 0;
-
-        header.addEventListener("mousedown", function(e) {
-
-            if (e.target === close) return;
-
-            isDragging = true;
-
-            const rect = popup.getBoundingClientRect();
-
-            offsetX = e.clientX - rect.left;
-            offsetY = e.clientY - rect.top;
-
-            popup.style.right = "auto";
-            popup.style.bottom = "auto";
-            popup.style.left = rect.left + "px";
-            popup.style.top = rect.top + "px";
-        });
-
-        document.addEventListener("mousemove", function(e) {
-
-            if (!isDragging) return;
-
-            popup.style.left = (e.clientX - offsetX) + "px";
-            popup.style.top = (e.clientY - offsetY) + "px";
-        });
-
-        document.addEventListener("mouseup", function() {
-            isDragging = false;
-        });
-
-
-        /* ==================== */
-        /* 유튜브 X 버튼 */
-        /* ==================== */
-
-        close.addEventListener("click", function() {
-
-            video.src = "about:blank";
-
-            popup.style.display = "none";
-        });
-
-
-        /* ==================== */
-        /* 갈매기 GIF 드래그 */
-        /* ==================== */
-
-        const seagull = document.getElementById("seagullPopup");
-
-        let seagullDragging = false;
-        let seagullOffsetX = 0;
-        let seagullOffsetY = 0;
-
-        seagull.addEventListener("mousedown", function(e) {
-
-            seagullDragging = true;
-
-            const rect = seagull.getBoundingClientRect();
-
-            seagullOffsetX = e.clientX - rect.left;
-            seagullOffsetY = e.clientY - rect.top;
-
-            seagull.style.left = rect.left + "px";
-            seagull.style.top = rect.top + "px";
-        });
-
-        document.addEventListener("mousemove", function(e) {
-
-            if (!seagullDragging) return;
-
-            seagull.style.left =
-                (e.clientX - seagullOffsetX) + "px";
-
-            seagull.style.top =
-                (e.clientY - seagullOffsetY) + "px";
-        });
-
-        document.addEventListener("mouseup", function() {
-            seagullDragging = false;
-        });
-
-    </script>
-
-</body>
-</html>
+           
