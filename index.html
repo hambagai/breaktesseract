@@ -5,22 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <style>
+        * {
+            box-sizing: border-box;
+        }
+
         body {
             margin: 0;
             background: white;
             color: #222;
-            font-family: Arial, sans-serif;
+            font-family: Dotum, 돋움, sans-serif;
             font-size: 13px;
         }
 
+        /* 메인 영역 */
         .container {
-            max-width: 650px;
+            width: 100%;
+            max-width: 690px;
             margin: 45px auto;
             padding: 0 20px;
             text-align: left;
         }
 
-        /* 기존 사진 + GIF */
+        /* 메인 사진 + GIF */
         .images {
             display: flex;
             gap: 10px;
@@ -32,7 +38,9 @@
         .gif-image {
             height: 200px;
             width: auto;
+            max-width: 48%;
             display: block;
+            object-fit: contain;
         }
 
         /* 글 */
@@ -45,31 +53,82 @@
             font-weight: bold;
         }
 
-        /* 왼쪽 추가 이미지 */
-        .side-image-one {
+        /* -------------------- */
+        /* 왼쪽 이미지 영역 */
+        /* -------------------- */
+
+        .side-gallery {
             position: absolute;
             left: 4%;
             top: 70px;
-            width: 116px;
-            height: 116px;
-            object-fit: cover;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 8px;
+        }
+
+        .side-image-one {
+            max-height: 200px;
+            max-width: 300px;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            display: block;
         }
 
         .side-image-two {
-            position: absolute;
-            left: 4%;
-            top: 190px;
-            width: 200px;
-            height: 105px;
-            object-fit: cover;
+            max-height: 200px;
+            max-width: 300px;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            display: block;
         }
 
+        /* -------------------- */
+        /* 전광판 문장 */
+        /* -------------------- */
+
+        .marquee {
+            width: 100%;
+            overflow: hidden;
+            white-space: nowrap;
+            font-size: 12px;
+            line-height: 1.5;
+            margin-top: 2px;
+        }
+
+        .marquee-track {
+            display: flex;
+            width: max-content;
+            animation: marquee-scroll 22s linear infinite;
+        }
+
+        .marquee-text {
+            flex-shrink: 0;
+            padding-right: 35px;
+        }
+
+        @keyframes marquee-scroll {
+            from {
+                transform: translateX(0);
+            }
+
+            to {
+                transform: translateX(-50%);
+            }
+        }
+
+        /* -------------------- */
         /* 유튜브 팝업 */
+        /* -------------------- */
+
         .youtube-popup {
             position: fixed;
             right: 80px;
             bottom: 40px;
             width: 320px;
+            max-width: calc(100vw - 32px);
             background: white;
             border: 1px solid #ccc;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
@@ -84,8 +143,8 @@
             justify-content: flex-end;
             align-items: center;
             padding: 0 7px;
-            box-sizing: border-box;
             user-select: none;
+            touch-action: none;
         }
 
         .youtube-close {
@@ -101,7 +160,10 @@
             border: none;
         }
 
+        /* -------------------- */
         /* 갈매기 GIF */
+        /* -------------------- */
+
         .seagull-popup {
             position: fixed;
             left: 850px;
@@ -110,6 +172,7 @@
             z-index: 9998;
             cursor: move;
             user-select: none;
+            touch-action: none;
         }
 
         .seagull-popup img {
@@ -119,42 +182,113 @@
             pointer-events: none;
         }
 
-        /* 작은 화면 */
+        /* -------------------- */
+        /* 모바일 */
+        /* -------------------- */
+
         @media (max-width: 900px) {
-            .side-image-one,
-            .side-image-two {
+
+            .side-gallery {
                 display: none;
             }
         }
+
+        @media (max-width: 600px) {
+
+            .container {
+                width: 100%;
+                margin: 25px auto;
+                padding: 0 16px;
+            }
+
+            .images {
+                gap: 8px;
+                margin-bottom: 20px;
+            }
+
+            .profile-image,
+            .gif-image {
+                height: 130px;
+                max-width: calc((100vw - 48px) / 2);
+                width: auto;
+                object-fit: contain;
+            }
+
+            body {
+                font-size: 13px;
+            }
+
+            .section {
+                line-height: 1.4;
+                margin-bottom: 18px;
+            }
+
+            .youtube-popup {
+                width: min(280px, calc(100vw - 32px));
+                right: 16px;
+                bottom: 16px;
+            }
+
+            .seagull-popup {
+                left: 16px;
+                top: 220px;
+                width: 130px;
+            }
+        }
+
     </style>
 </head>
 
 <body>
 
-    <!-- 왼쪽 추가 이미지 2개 -->
-    <img
-        src="f79602b5f869d5e7487634d8b9d861f9.jpg"
-        alt="Side Image 1"
-        class="side-image-one">
+    <!-- 왼쪽 이미지 2개 + 전광판 -->
+    <div class="side-gallery" id="sideGallery">
 
-    <img
-        src="%ED%99%94%EB%A9%B4%20%EC%BA%A1%EC%B2%98%202026-08-18%20234748.png"
-        alt="Side Image 2"
-        class="side-image-two">
+        <img
+            src="f79602b5f869d5e7487634d8b9d861f9.jpg"
+            alt="Side Image 1"
+            class="side-image-one">
+
+        <img
+            src="%ED%99%94%EB%A9%B4%20%EC%BA%A1%EC%B2%98%202026-08-18%20234748.png"
+            alt="Side Image 2"
+            class="side-image-two"
+            id="sideImageTwo">
+
+        <div class="marquee" id="marquee">
+
+            <div class="marquee-track">
+
+                <span class="marquee-text">
+                    Okay. I've cross-referenced Jasmine's preferences with every guy under 5'3", well-coiffed, a five-step skin regimen, and a butt she can rest a drink on.
+                </span>
+
+                <span class="marquee-text">
+                    Okay. I've cross-referenced Jasmine's preferences with every guy under 5'3", well-coiffed, a five-step skin regimen, and a butt she can rest a drink on.
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
 
 
     <!-- 메인 자기소개 -->
     <div class="container">
 
-        <!-- 사진 + 움짤 -->
         <div class="images">
-            <img src="HL1DxI8awAACiPX.jpg"
-                 alt="Profile"
-                 class="profile-image">
 
-            <img src="You_Are_An_Idiot_screen.gif"
-                 alt="GIF"
-                 class="gif-image">
+            <img
+                src="HL1DxI8awAACiPX.jpg"
+                alt="Profile"
+                class="profile-image">
+
+            <img
+                src="You_Are_An_Idiot_screen.gif"
+                alt="GIF"
+                class="gif-image">
+
         </div>
 
         <div class="section">
@@ -162,10 +296,10 @@
         </div>
 
         <div class="section">
-            2D <span class="bold">GK</span> Hellaverse 원나블<br>
-            2.5D MCU OITNB OnMyBlock<br>
-            GAME <span class="bold">ブルアカ</span> Undertale OFF CYPHERS<br>
-            etc) TADC FnF(Sarventes Mid-Fight Masses)
+            2D- <span class="bold">GK</span> Hellaverse 원나블<br>
+            2.5D- MCU OITNB OnMyBlock<br>
+            GAME- <span class="bold">ブルアカ</span> Undertale OFF CYPHERS<br>
+            etc) TADC FnF
         </div>
 
         <div class="section">
@@ -208,94 +342,124 @@
 
     <!-- 갈매기 GIF -->
     <div class="seagull-popup" id="seagullPopup">
-        <img src="seagulls-dancing-seagull.gif"
-             alt="Dancing Seagull">
+
+        <img
+            src="seagulls-dancing-seagull.gif"
+            alt="Dancing Seagull">
+
     </div>
 
 
     <script>
 
+        /* -------------------- */
+        /* 드래그 기능 */
+        /* -------------------- */
+
+        function makeDraggable(element, handle) {
+
+            let dragging = false;
+            let offsetX = 0;
+            let offsetY = 0;
+
+            handle.addEventListener("pointerdown", function(e) {
+
+                if (e.target.id === "youtubeClose") return;
+
+                dragging = true;
+
+                const rect = element.getBoundingClientRect();
+
+                offsetX = e.clientX - rect.left;
+                offsetY = e.clientY - rect.top;
+
+                element.style.right = "auto";
+                element.style.bottom = "auto";
+                element.style.left = rect.left + "px";
+                element.style.top = rect.top + "px";
+
+                if (handle.setPointerCapture) {
+                    handle.setPointerCapture(e.pointerId);
+                }
+
+                e.preventDefault();
+
+            });
+
+            handle.addEventListener("pointermove", function(e) {
+
+                if (!dragging) return;
+
+                element.style.left =
+                    (e.clientX - offsetX) + "px";
+
+                element.style.top =
+                    (e.clientY - offsetY) + "px";
+
+            });
+
+            handle.addEventListener("pointerup", function() {
+                dragging = false;
+            });
+
+            handle.addEventListener("pointercancel", function() {
+                dragging = false;
+            });
+
+        }
+
+
         /* 유튜브 드래그 */
         const popup = document.getElementById("youtubePopup");
         const header = document.getElementById("youtubeHeader");
+
+        makeDraggable(popup, header);
+
+
+        /* 유튜브 X 버튼 */
         const close = document.getElementById("youtubeClose");
         const video = document.getElementById("youtubeVideo");
 
-        let isDragging = false;
-        let offsetX = 0;
-        let offsetY = 0;
-
-        header.addEventListener("mousedown", function(e) {
-
-            if (e.target === close) return;
-
-            isDragging = true;
-
-            const rect = popup.getBoundingClientRect();
-
-            offsetX = e.clientX - rect.left;
-            offsetY = e.clientY - rect.top;
-
-            popup.style.right = "auto";
-            popup.style.bottom = "auto";
-            popup.style.left = rect.left + "px";
-            popup.style.top = rect.top + "px";
-        });
-
-        document.addEventListener("mousemove", function(e) {
-
-            if (!isDragging) return;
-
-            popup.style.left = (e.clientX - offsetX) + "px";
-            popup.style.top = (e.clientY - offsetY) + "px";
-        });
-
-        document.addEventListener("mouseup", function() {
-            isDragging = false;
-        });
-
-
-        /* 유튜브 X 버튼 - 영상 정지 */
         close.addEventListener("click", function() {
+
             video.src = "about:blank";
             popup.style.display = "none";
+
         });
 
 
-        /* 갈매기 GIF 드래그 */
+        /* 갈매기 드래그 */
         const seagull = document.getElementById("seagullPopup");
 
-        let seagullDragging = false;
-        let seagullOffsetX = 0;
-        let seagullOffsetY = 0;
+        makeDraggable(seagull, seagull);
 
-        seagull.addEventListener("mousedown", function(e) {
 
-            seagullDragging = true;
+        /* -------------------- */
+        /* 전광판 폭 자동 조절 */
+        /* -------------------- */
 
-            const rect = seagull.getBoundingClientRect();
+        function adjustMarqueeWidth() {
 
-            seagullOffsetX = e.clientX - rect.left;
-            seagullOffsetY = e.clientY - rect.top;
+            const image = document.getElementById("sideImageTwo");
+            const marquee = document.getElementById("marquee");
 
-            seagull.style.left = rect.left + "px";
-            seagull.style.top = rect.top + "px";
-        });
+            if (image && image.complete && image.naturalWidth > 0) {
 
-        document.addEventListener("mousemove", function(e) {
+                const imageWidth = image.getBoundingClientRect().width;
 
-            if (!seagullDragging) return;
+                marquee.style.width = imageWidth + "px";
 
-            seagull.style.left =
-                (e.clientX - seagullOffsetX) + "px";
+            }
 
-            seagull.style.top =
-                (e.clientY - seagullOffsetY) + "px";
-        });
+        }
 
-        document.addEventListener("mouseup", function() {
-            seagullDragging = false;
-        });
+        const sideImage = document.getElementById("sideImageTwo");
+
+        sideImage.addEventListener("load", adjustMarqueeWidth);
+
+        window.addEventListener("resize", adjustMarqueeWidth);
+
+        window.addEventListener("load", adjustMarqueeWidth);
 
     </script>
 
